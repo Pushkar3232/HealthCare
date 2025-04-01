@@ -2,11 +2,26 @@
 
 import pandas as pd
 import joblib
+import os
 
-model_young = joblib.load("artifacts/model_young.joblib")
-model_rest = joblib.load("artifacts/model_rest.joblib")
-scaler_young = joblib.load("artifacts/scaler_young.joblib")
-scaler_rest = joblib.load("artifacts/scaler_rest.joblib")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+artifacts_dir = os.path.join(BASE_DIR, "artifacts")
+
+# Define the paths to each file
+model_young_path = os.path.join(artifacts_dir, "model_young.joblib")
+model_rest_path = os.path.join(artifacts_dir, "model_rest.joblib")
+scaler_young_path = os.path.join(artifacts_dir, "scaler_young.joblib")
+scaler_rest_path = os.path.join(artifacts_dir, "scaler_rest.joblib")
+
+# Load each model and scaler
+try:
+    model_young = joblib.load(model_young_path)
+    model_rest = joblib.load(model_rest_path)
+    scaler_young = joblib.load(scaler_young_path)
+    scaler_rest = joblib.load(scaler_rest_path)
+except FileNotFoundError as e:
+    print(f"Error: {e}. Ensure the file exists in the path: {artifacts_dir}")
+
 
 def calculate_normalized_risk(medical_history):
     risk_scores = {
