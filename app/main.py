@@ -4,7 +4,9 @@ import streamlit as st
 from prediction_helper import predict
 
 # Define the page layout
-st.title('Health Insurance Cost Predictor')
+st.title('Premium Xpert')
+header = st.container()
+header.subheader('Health Insurance Cost predictor')
 
 categorical_options = {
     'Gender': ['Male', 'Female'],
@@ -76,3 +78,6 @@ input_dict = {
 if st.button('Predict'):
     prediction = predict(input_dict)
     st.success(f'Predicted Health Insurance Cost: {prediction}')
+
+footer = st.container()
+footer.text(' Created by Pushkar ')
